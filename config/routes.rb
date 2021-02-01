@@ -1,6 +1,9 @@
 Rails.application.routes.draw do
+  resources :reviews
   resources :activities
-  resources :trips
+  resources :trips do
+    resources :activities, only: [:index]
+  end
   devise_for :users, path: '', path_names: {
     sign_in: 'login',
     sign_out: 'logout',

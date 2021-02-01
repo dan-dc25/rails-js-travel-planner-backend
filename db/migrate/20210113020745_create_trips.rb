@@ -3,8 +3,6 @@ class CreateTrips < ActiveRecord::Migration[6.0]
     create_table :trips do |t|
       t.string :location
       t.string :date
-      t.float :average_rating
-      t.string :review
 
     end
   end

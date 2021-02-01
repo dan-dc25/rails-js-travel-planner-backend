@@ -7,5 +7,5 @@ class User < ApplicationRecord
   :jwt_authenticatable, jwt_revocation_strategy: self
 
   has_many :trips
-  has_many :activities
+  
 end

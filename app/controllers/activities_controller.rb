@@ -15,12 +15,12 @@ class ActivitiesController < ApplicationController
 
   # POST /activities
   def create
-    @activity = Activity.new(activity_params)
-
-    if @activity.save
-      render json: @activity, status: :created, location: @activity
+    trip = Trip.find(params[:id])
+    activities = trip.activities.build(activity_params)
+    if activity.save
+      render json: activities, status: :created, location: activities
     else
-      render json: @activity.errors, status: :unprocessable_entity
+      render json: activities.errors, status: :unprocessable_entity
     end
   end
 
@@ -46,6 +46,6 @@ class ActivitiesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def activity_params
-      params.require(:activity).permit(:name, :completed, :user_id)
+      params.require(:activity).permit(:name, :completed, :trip_id)
     end
 end
