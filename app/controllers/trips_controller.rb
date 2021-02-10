@@ -4,13 +4,13 @@ class TripsController < ApplicationController
 
   # GET /trips
   def index
-    @trips = current_user.trips
-    render json: @trips
+    trips = current_user.trips
+    render json: trips
   end
 
   # GET /trips/1
   def show
-    render json: @trip
+    render json: trip, include: [:activity, :review]
   end
 
   # POST /trips
@@ -43,6 +43,7 @@ class TripsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_trip
+      #binding.pry
       @trip = Trip.find(params[:id])
     end
 end

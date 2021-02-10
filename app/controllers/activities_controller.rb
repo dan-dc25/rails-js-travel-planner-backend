@@ -3,8 +3,8 @@ class ActivitiesController < ApplicationController
 
   # GET /activities
   def index
+    trip = Trip.find_by(id: params[:id])
     @activities = Activity.all
-
     render json: @activities
   end
 
@@ -15,12 +15,12 @@ class ActivitiesController < ApplicationController
 
   # POST /activities
   def create
-    trip = Trip.find(params[:id])
-    activities = trip.activities.build(activity_params)
+    activity = Activity.create(name: params[:name],
+                            trip_id: params[:trip_id])
     if activity.save
-      render json: activities, status: :created, location: activities
+      render json: activity, status: :created, location: activity
     else
-      render json: activities.errors, status: :unprocessable_entity
+      render json: activity.errors, status: :unprocessable_entity
     end
   end
 
@@ -42,10 +42,5 @@ class ActivitiesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
       @activity = Activity.find(params[:id])
-    end
-
-    # Only allow a trusted parameter "white list" through.
-    def activity_params
-      params.require(:activity).permit(:name, :completed, :trip_id)
     end
 end
