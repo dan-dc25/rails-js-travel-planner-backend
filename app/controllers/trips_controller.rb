@@ -37,7 +37,9 @@ class TripsController < ApplicationController
 
   # DELETE /trips/1
   def destroy
-    @trip.destroy
+    trip = Trip.find_by(id: params[:id])
+    activity = trip.activities.destroy_all
+    trip.destroy
   end
 
   private
